@@ -1,0 +1,7 @@
+# Folders
+.idea/
+bin
+target
+
+# Files
+*.iml

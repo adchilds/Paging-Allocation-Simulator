@@ -1,3 +1,9 @@
+package com.github.adchilds.pas.ui;
+
+import com.github.adchilds.pas.algorithm.impl.FIFO_Allocation;
+import com.github.adchilds.pas.algorithm.impl.LRU_Allocation;
+import com.github.adchilds.pas.algorithm.impl.SC_Allocation;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -38,15 +44,16 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-/*
- * This class holds the foundation of the program's Graphical
- * User Interface. The GUI is set up and displayed from this class.
- * This class also calls other classes and their methods in order to
- * display our data (such as our page allocations).
+/**
+ * This class holds the foundation of the programs Graphical User Interface. This class also calls other classes and
+ * their methods in order to display our data (such as our page allocations).
+ *
+ * @author Adam Childs
+ * @since 1.0
  */
-class UserInterface extends JFrame implements ActionListener
-{
+public class UserInterface extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
+
 	private JFrame f;
 	private Container contentPane;
 	private JTextArea randStrArea;
@@ -60,8 +67,7 @@ class UserInterface extends JFrame implements ActionListener
 	// Program Variables
 	private String version = "1.00"; // v1.00 (release date)
 
-	public UserInterface()
-	{
+	public UserInterface() {
 		f = new JFrame();
 		f.setTitle( "Page Allocation Simulator" ); // Set the title of the JFrame
 		contentPane = f.getContentPane();
@@ -75,15 +81,15 @@ class UserInterface extends JFrame implements ActionListener
 			f.setSize(780, 560); // Set the size of the JFrame (width, height)
 		else
 			f.setSize(800, 560); // Set the size of the JFrame (width, height)
-		f.setIconImage(new ImageIcon(getClass().getResource("images/small_icon.png")).getImage());
+
+		f.setIconImage(new ImageIcon(ClassLoader.getSystemResource("images/small_icon.png")).getImage());
 		f.setLocation(setFrameCentered()); // Set the location of the JFrame on the screen
 		f.setResizable(false); // Frame cannot be resized
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // End all java processes when the program is closed
 		f.setVisible(true); // JFrame must be visible to see it
 	}
 
-	private JPanel northPanel()
-	{
+	private JPanel northPanel() {
 		JPanel p = new JPanel(new BorderLayout());
 
 		p.add(northWestPanel(), BorderLayout.WEST);
@@ -92,8 +98,7 @@ class UserInterface extends JFrame implements ActionListener
 		return p;
 	}
 
-	private JPanel northEastPanel()
-	{
+	private JPanel northEastPanel() {
 		JPanel topLayer = new JPanel(new BorderLayout());
 		topLayer.setBorder(BorderFactory.createEmptyBorder(10, 15, 0, 15)); // top, left, bottom, right
 		JPanel north = new JPanel();
@@ -113,7 +118,7 @@ class UserInterface extends JFrame implements ActionListener
 
 		button = new JButton();
 		button.setPreferredSize(new Dimension(85, 25));
-		button.setIcon(new ImageIcon(getClass().getResource("images/reset.png")));
+		button.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/reset.png")));
 		button.setToolTipText("Reset Simulation");
 		button.setFocusPainted(false);
 		button.setActionCommand("reset");
@@ -122,7 +127,7 @@ class UserInterface extends JFrame implements ActionListener
 
 		button = new JButton();
 		button.setPreferredSize(new Dimension(85, 25));
-		button.setIcon(new ImageIcon(getClass().getResource("images/play.png")));
+		button.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/play.png")));
 		button.setToolTipText("Run Simulation");
 		button.setFocusPainted(false);
 		button.setActionCommand("run");
@@ -132,7 +137,7 @@ class UserInterface extends JFrame implements ActionListener
 		// TODO: Add stopping functionality
 		button = new JButton();
 		button.setPreferredSize(new Dimension(85, 25));
-		button.setIcon(new ImageIcon(getClass().getResource("images/stop.png")));
+		button.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/stop.png")));
 		button.setToolTipText("End Simulation");
 		button.setFocusPainted(false);
 		button.setActionCommand("stop");
@@ -143,7 +148,7 @@ class UserInterface extends JFrame implements ActionListener
 		// TODO: Add stepping functionality
 		button = new JButton();
 		button.setPreferredSize(new Dimension(85, 25));
-		button.setIcon(new ImageIcon(getClass().getResource("images/step.png")));
+		button.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/step.png")));
 		button.setToolTipText("Step Through");
 		button.setFocusPainted(false);
 		button.setActionCommand("step");
@@ -205,10 +210,9 @@ class UserInterface extends JFrame implements ActionListener
 		return topLayer;
 	}
 
-	private JPanel northWestPanel()
-	{
+	private JPanel northWestPanel() {
 		JPanel p = new JPanel();
-		ImageIcon i = new ImageIcon(getClass().getResource("images/page_allocation_simulator.png"));
+		ImageIcon i = new ImageIcon(ClassLoader.getSystemResource("images/page_allocation_simulator.png"));
 		JLabel label = new JLabel(i);
 
 		JLabel buffer = new JLabel();
@@ -220,8 +224,7 @@ class UserInterface extends JFrame implements ActionListener
 		return p;
 	}
 
-	private JPanel centerPanel()
-	{
+	private JPanel centerPanel() {
 		JPanel topLayer = new JPanel(new FlowLayout());
 		JPanel firstPanel, secondPanel, thirdPanel;
 		JScrollPane sc;
@@ -300,8 +303,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * Lays out the panel containing page fault and
 	 * page fault rate information, next to the JTables.
 	 */
-	private JPanel fPageFaults()
-	{
+	private JPanel fPageFaults() {
 		JLabel label;
 		JPanel panelTotal = new JPanel();
 		panelTotal.setLayout(new BorderLayout());
@@ -336,8 +338,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * Lays out the panel containing page fault and
 	 * page fault rate information, next to the JTables.
 	 */
-	private JPanel lPageFaults()
-	{
+	private JPanel lPageFaults() {
 		JLabel label;
 		JPanel panelTotal = new JPanel();
 		panelTotal.setLayout(new BorderLayout());
@@ -372,8 +373,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * Lays out the panel containing page fault and
 	 * page fault rate information, next to the JTables.
 	 */
-	private JPanel sPageFaults()
-	{
+	private JPanel sPageFaults() {
 		JLabel label;
 		JPanel panelTotal = new JPanel();
 		panelTotal.setLayout(new BorderLayout());
@@ -407,8 +407,7 @@ class UserInterface extends JFrame implements ActionListener
 	/*
 	 * JMenuBar holding all menu options
 	 */
-	private JMenuBar menuBar()
-	{
+	private JMenuBar menuBar() {
 		JMenuBar mb = new JMenuBar();
 		JMenu fileMenu, helpMenu;
 		JMenuItem run, stop, reset, properties, exit, help, about;
@@ -422,19 +421,19 @@ class UserInterface extends JFrame implements ActionListener
 
 		// JMenuItem's
 		run = new JMenuItem( "Run" );
-		run.setIcon(new ImageIcon(getClass().getResource("images/play.png")));
+		run.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/play.png")));
 		stop = new JMenuItem( "Stop" );
 		stop.setEnabled(false);
-		stop.setIcon(new ImageIcon(getClass().getResource("images/stop.png")));
+		stop.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/stop.png")));
 		reset = new JMenuItem( "Reset" );
-		reset.setIcon(new ImageIcon(getClass().getResource("images/reset.png")));
+		reset.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/reset.png")));
 		properties = new JMenuItem( "Properties" );
-		properties.setIcon(new ImageIcon(getClass().getResource("images/properties_icon.png")));
+		properties.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/properties_icon.png")));
 		exit = new JMenuItem( "Exit" );
 		help = new JMenuItem( "Help" );
-		help.setIcon(new ImageIcon(getClass().getResource("images/help_icon.png")));
+		help.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/help_icon.png")));
 		about = new JMenuItem( "About" );
-		about.setIcon(new ImageIcon(getClass().getResource("images/exclamation_icon.png")));
+		about.setIcon(new ImageIcon(ClassLoader.getSystemResource("images/exclamation_icon.png")));
 
 		// Add JMenuItem's to the JMenu's
 		fileMenu.add(run);
@@ -480,8 +479,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * @return returns a Point(x, y) where the JFrame will be centered
 	 * on the users screen.
 	 */
-	private Point setFrameCentered()
-	{		
+	private Point setFrameCentered() {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		int w = f.getSize().width;
 		int h = f.getSize().height;
@@ -497,8 +495,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * @param length the number of random numbers to generate for the string
 	 * @return the string of random numbers
 	 */
-	private String generateRandomNumbers(int length, int range)
-	{
+	private String generateRandomNumbers(int length, int range) {
 		String s = "";
 		Random gen = new Random();
 
@@ -520,11 +517,8 @@ class UserInterface extends JFrame implements ActionListener
 	 * 
 	 * @return name of the operating system that the user is currently using
 	 */
-	private String getOS()
-	{
-		String s = System.getProperty("os.name").toLowerCase();
-			
-		return s;
+	private String getOS() {
+		return System.getProperty("os.name").toLowerCase();
 	}
 
 	/**
@@ -532,11 +526,10 @@ class UserInterface extends JFrame implements ActionListener
 	 * @param t JTextArea to add the content to
 	 * @param f Text file name
 	 */
-	private void addContent(JTextArea t, String f)
-	{
+	private void addContent(JTextArea t, String f) {
 		String line;
 		try {
-			InputStream iStream = getClass().getResourceAsStream(f);
+			InputStream iStream = ClassLoader.getSystemResourceAsStream(f);
 			InputStreamReader isr = new InputStreamReader(iStream);
 			BufferedReader reader = new BufferedReader(isr);
 			
@@ -559,8 +552,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * @param index the column of the JTable 't' to modify
 	 * @param newName the new value to set at 'index' of 't'
 	 */
-	private void updateColumnName(JTable t, int index, String newName)
-	{
+	private void updateColumnName(JTable t, int index, String newName) {
 		JTableHeader th = t.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		TableColumn tc = tcm.getColumn(index);
@@ -568,13 +560,12 @@ class UserInterface extends JFrame implements ActionListener
 		th.repaint();
 	}
 
-	/*
+	/**
 	 * Takes the string of numbers from the randStrArea
 	 * and places the numbers into an integer array. Converts
 	 * from String to int.
 	 */
-	private int[] refStringToArray()
-	{
+	private int[] refStringToArray() {
 		String s = randStrArea.getText();
 		String[] s2 = s.split(", ", s.length());
 		int[] i = new int[s2.length];
@@ -588,11 +579,10 @@ class UserInterface extends JFrame implements ActionListener
 		return i;
 	}
 
-	/*
+	/**
 	 * Begins populating the FIFO JTable
 	 */
-	private void populateFIFOTable()
-	{
+	private void populateFIFOTable() {
 		FIFO_Allocation fa = new FIFO_Allocation();
 		int[] s = refStringToArray();
 		int frames = frameSpinnerModel.getNumber().intValue();
@@ -612,11 +602,10 @@ class UserInterface extends JFrame implements ActionListener
 		FIFO_fr.setText(fmt.format(fa.faultRate(s.length, faults)) + "%");
 	}
 
-	/*
+	/**
 	 * Begins populating the LRU JTable
 	 */
-	private void populateLRUTable()
-	{
+	private void populateLRUTable() {
 		int[] s = refStringToArray();
 		int frames = frameSpinnerModel.getNumber().intValue();
 		int columns = LRU_Table.getColumnCount();
@@ -637,11 +626,10 @@ class UserInterface extends JFrame implements ActionListener
 		LRU_fr.setText(fmt.format(lrua.return_fault_rate()) + "%");
 	}
 
-	/*
+	/**
 	 * Begins populating the SC JTable
 	 */
-	private void populateSCTable()
-	{
+	private void populateSCTable() {
 		int[] s = refStringToArray();
 		int frames = frameSpinnerModel.getNumber().intValue();
 		int columns = SC_Table.getColumnCount();
@@ -670,8 +658,7 @@ class UserInterface extends JFrame implements ActionListener
 	 * @param h Header for the new column
 	 * @param v Values to be stored in the column
 	 */
-	public void addColumn(JTable t, Object h, Object[] v)
-	{
+	private void addColumn(JTable t, Object h, Object[] v) {
 		DefaultTableModel m = (DefaultTableModel)t.getModel();
 		TableColumn c = new TableColumn(m.getColumnCount());
 
@@ -680,12 +667,10 @@ class UserInterface extends JFrame implements ActionListener
 		m.addColumn(h.toString(), v);
 	}
 
-	/*
-	 * This method takes the randomly generated string and adds
-	 * each number to a the column header.
+	/**
+	 * This method takes the randomly generated string and adds each number to a the column header.
 	 */
-	private void updateTableColumns()
-	{
+	private void updateTableColumns() {
 		int[] s = refStringToArray();
 		int columns = FIFO_Table.getColumnCount() - 1;
 		int tempLength = s.length;
@@ -720,12 +705,10 @@ class UserInterface extends JFrame implements ActionListener
 		}
 	}
 	
-	/*
-	 * This method either adds rows or deletes rows depending on
-	 * the frame number that the user has set.
+	/**
+	 * This method either adds rows or deletes rows depending on the frame number that the user has set.
 	 */
-	private void updateTableRows()
-	{
+	private void updateTableRows() {
 		int frames = frameSpinnerModel.getNumber().intValue();
 		int rows = FIFO_Table.getRowCount();
 		int tempRowCount = rows;
@@ -753,8 +736,7 @@ class UserInterface extends JFrame implements ActionListener
 		}
 	}
 
-	public void removeColumnAndData(JTable t, int cIndex)
-	{
+	public void removeColumnAndData(JTable t, int cIndex) {
 		MyDefaultTableModel m = (MyDefaultTableModel)t.getModel();
 		TableColumn c = t.getColumnModel().getColumn(cIndex);
 		int columnModelIndex = c.getModelIndex();
@@ -783,17 +765,13 @@ class UserInterface extends JFrame implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		System.out.println( "Command [" + e.getActionCommand() + "]");
 
 		// Menubar
-		if (e.getActionCommand().equals("exit"))
-		{
+		if ("exit".equalsIgnoreCase(e.getActionCommand())) {
 			System.exit(0);
-		}
-		else if (e.getActionCommand().equals("help"))
-		{
+		} else if ("help".equalsIgnoreCase(e.getActionCommand())) {
 			JTextArea textArea = new JTextArea();
 			addContent(textArea, "README.txt");
 			textArea.setEditable(false);
@@ -802,9 +780,7 @@ class UserInterface extends JFrame implements ActionListener
 			sc.setPreferredSize(new Dimension(634, 250)); // Width, Height
 			sc.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			JOptionPane.showMessageDialog(f, sc, "Help", JOptionPane.QUESTION_MESSAGE);
-		}
-		else if (e.getActionCommand().equals("about"))
-		{
+		} else if ("about".equalsIgnoreCase(e.getActionCommand())) {
 			JOptionPane.showMessageDialog(f, "Version: " + version + "\n" +
 											 "Authors: " + "\n" +
 											 "    Adam Childs\n" +
@@ -814,15 +790,14 @@ class UserInterface extends JFrame implements ActionListener
 		}
 
 		// Buttons
-		else if (e.getActionCommand().equals("reset"))
-		{
+		else if ("reset".equalsIgnoreCase(e.getActionCommand())) {
 			/*
 			 * Set all fields back to their default values
 			 */
 			randStrArea.setText("");
-			strLengthModel.setValue(Integer.valueOf(7));
-			frameSpinnerModel.setValue(Integer.valueOf(4));
-			rangeSpinnerModel.setValue(Integer.valueOf(0));
+			strLengthModel.setValue(7);
+			frameSpinnerModel.setValue(4);
+			rangeSpinnerModel.setValue(0);
 			
 			FIFO_faults.setText("");
 			FIFO_fr.setText("");
@@ -833,18 +808,15 @@ class UserInterface extends JFrame implements ActionListener
 
 			int columns = FIFO_Table.getColumnCount() - 1;
 
-			while (7 < columns)
-			{
+			while (7 < columns) {
 				removeColumnAndData(FIFO_Table, columns);
 				removeColumnAndData(LRU_Table, columns);
 				removeColumnAndData(SC_Table, columns);
 				columns--;
 			}
 
-			for (int i = 1; i < FIFO_Table.getColumnCount(); i++)
-			{
-				for (int m = 0; m < FIFO_Table.getRowCount(); m++)
-				{
+			for (int i = 1; i < FIFO_Table.getColumnCount(); i++) {
+				for (int m = 0; m < FIFO_Table.getRowCount(); m++) {
 					FIFO_Table.getModel().setValueAt("", m, i);
 					LRU_Table.getModel().setValueAt("", m, i);
 					SC_Table.getModel().setValueAt("", m, i);
@@ -855,19 +827,14 @@ class UserInterface extends JFrame implements ActionListener
 			SC_TM.fireTableDataChanged();
 
 			String[] s = { "A", "B", "C", "D", "E", "F", "G" };
-			for(int i = 0; i < s.length; i++)
-			{
+			for(int i = 0; i < s.length; i++) {
 				updateColumnName(FIFO_Table, i + 1, "" + s[i]);
 				updateColumnName(LRU_Table, i + 1, "" + s[i]);
 				updateColumnName(SC_Table, i + 1, "" + s[i]);
 			}
-		}
-		else if (e.getActionCommand().equals("properties"))
-		{
+		} else if ("properties".equalsIgnoreCase(e.getActionCommand())) {
 			propWin = new PropertiesWindow();
-		}
-		else if (e.getActionCommand().equals("run"))
-		{
+		} else if ("run".equalsIgnoreCase(e.getActionCommand())) {
 			/*
 			 * If no string has been generated or entered
 			 * we display an error message prompting the
@@ -875,18 +842,15 @@ class UserInterface extends JFrame implements ActionListener
 			 * has been provided, we continue with the program
 			 * execution.
 			 */
-			if (randStrArea.getText().equals(""))
-			{
+			if ("".equals(randStrArea.getText())) {
 				JOptionPane.showMessageDialog(f, "Error! No string detected. Please\n" +
 												"generate or supply a string of numbers\n" +
 												"with a comma and space between each\n" +
 												"number.",
 												"String Error", JOptionPane.ERROR_MESSAGE);
 			} else {
-				if (!(refStringToArray() == null))
-				{
-					if (!(refStringToArray().length < 7))
-					{
+				if (!(refStringToArray() == null)) {
+					if (!(refStringToArray().length < 7)) {
 						updateTableColumns();
 						updateTableRows();
 						populateFIFOTable();
@@ -901,17 +865,11 @@ class UserInterface extends JFrame implements ActionListener
 					}
 				}
 			}
-		}
-		else if (e.getActionCommand().equals("stop"))
-		{
-			
-		}
-		else if (e.getActionCommand().equals("step"))
-		{
-			
-		}
-		else if (e.getActionCommand().equals("generate"))
-		{
+		} else if ("stop".equalsIgnoreCase(e.getActionCommand())) {
+			// Not yet implemented
+		} else if ("step".equalsIgnoreCase(e.getActionCommand())) {
+			// Not yet implemented
+		} else if ("generate".equalsIgnoreCase(e.getActionCommand())) {
 			/*
 			 * Here we grab the value in the JSpinner which signifies the amount of
 			 * numbers that the individual wants for the string. Then we generate

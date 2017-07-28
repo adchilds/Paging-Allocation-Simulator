@@ -1,40 +1,44 @@
-/* 
- * This class implements a Second-Chance algorithm for page allocation. It requires the
- * input of an array of integers that represent the page references along with an integer
- * that represents the number of available frames in the system.
- * 
- * This algorithm will return a 2D array of integers that represent the frame allocation after
- * each page reference is made. It is also capable of returning the number of page faults that
- * occurred during a specific run through the algorithm or at any point during it. 
-*/
-public class SC_Allocation {
-	//Initialize a global variable to keep track of the page faults   
-	int pageFault = 0;
-	
-	public SC_Allocation(){
-	   
-   }
+package com.github.adchilds.pas.algorithm.impl;
 
-	//The primary method performs all the algorithmic replacements and fills a 2D array
-   int[][] retAllocation(int[] references, int frames){
-	   
-	   //A 2D array is created to hold all the references for the entire algorithm. 
-	   //This will be returned to the main program.
-	   int[][] allocation = new int[references.length + 1][frames];
-	   
-	   //A Queue is created to hold what element should be replaced at any particular time.
-	   Queue replacement = new Queue(frames);
-	   
-	   //Another Queue is created to hold the dirty bit for each of the elements in replacement 
-	   Queue dirty = new Queue(frames);
-	   
-	   //The 2D array is initialized to be filled with -1 so that the program can tell
-	   //which of the frames have been allocated and which have not.
-	   for (int l = 0; l <= references.length; l++){
-		   for (int m = 0; m < frames; m++){
-			   allocation[l][m] = -1;
-		   }
-	   }
+import com.github.adchilds.pas.algorithm.support.Queue;
+import com.github.adchilds.pas.algorithm.PagingAlgorithm;
+
+/**
+ * This class implements a Second-Chance algorithm for page allocation. It requires the input of an array of integers
+ * that represent the page references along with an integer  that represents the number of available frames in the
+ * system.
+ * 
+ * This algorithm will return a 2D array of integers that represent the frame allocation after each page reference is
+ * made. It is also capable of returning the number of page faults that occurred during a specific run through the
+ * algorithm or at any point during it.
+ *
+ * @since 1.0
+ */
+public class SC_Allocation implements PagingAlgorithm {
+	// Initialize a global variable to keep track of the page faults
+	int pageFault = 0;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    public int[][] retAllocation(int[] references, int frames) {
+		//A 2D array is created to hold all the references for the entire algorithm.
+	    //This will be returned to the main program.
+	    int[][] allocation = new int[references.length + 1][frames];
+        // A Queue is created to hold what element should be replaced at any particular time.
+        Queue replacement = new Queue(frames);
+
+        // Another Queue is created to hold the dirty bit for each of the elements in replacement
+        Queue dirty = new Queue(frames);
+
+        // The 2D array is initialized to be filled with -1 so that the program can tell
+        // which of the frames have been allocated and which have not.
+        for (int l = 0; l <= references.length; l++) {
+            for (int m = 0; m < frames; m++){
+                allocation[l][m] = -1;
+            }
+        }
 	   
 	   //The following nested for loops perform the FIFO algorithm. The first one
 	   //runs through for as long as there are references available. The second one
@@ -78,14 +82,14 @@ public class SC_Allocation {
 			   }
 				   
 			   //If the reference is not found by the last available frame and the reference is
-			   //not found anywhere in the queue (is not in any other frame), then dirty Queue
+			   //not found anywhere in the queue (is not in any other frame), then dirty com.github.adchilds.pas.algorithm.support.Queue
 			   //is searched for the location of the first reference with a dirty bit of 0.
 			   //If is found then the location is returned if not, -1 is returned.
 			   if (k == frames - 1 && replacement.search(references[i - 1]) == false){
 				   int location = dirty.findReplacement(frames);
 				   
 				   //If all the elements have dirty bits of 1 after a search through, then they are all
-				   //changed to 0, the first element is taken out of the Queue and the element is replaced
+				   //changed to 0, the first element is taken out of the com.github.adchilds.pas.algorithm.support.Queue and the element is replaced
 				   //in the array with the current reference.
 				   if (location == -1){
 					   dirty = dirty.makeZero(frames);
@@ -130,11 +134,11 @@ public class SC_Allocation {
    }
    
    //This function returns the number of page faults counted.
-   int retFault(){
+   public int retFault() {
 	   return pageFault;
    }
 
-   double faultRate(int refs, int f){
+   public double faultRate(int refs, int f) {
 	   double rate;
 	   int faults = f;
 	   

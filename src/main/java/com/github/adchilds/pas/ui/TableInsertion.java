@@ -1,3 +1,5 @@
+package com.github.adchilds.pas.ui;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -27,7 +29,7 @@ public class TableInsertion extends Thread
 	 * 
 	 * @param t the JTable to insert the data into
 	 * @param m the DefaultTableModel that needs to display the changed data
-	 * @param p the PropertiesWindow where we get the user's specified delay from
+	 * @param p the com.github.adchilds.pas.ui.PropertiesWindow where we get the user's specified delay from
 	 * @param r the 2d array where our data is stored
 	 * @param f the number of frames the user has selected
 	 * @param c the number of columns the user has selected

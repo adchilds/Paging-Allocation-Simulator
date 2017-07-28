@@ -1,3 +1,5 @@
+package com.github.adchilds.pas.algorithm.impl;
+
 import java.util.Arrays;
 
 public class LRU_Allocation
