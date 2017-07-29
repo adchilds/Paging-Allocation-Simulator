@@ -613,9 +613,8 @@ public class UserInterface extends JFrame implements ActionListener {
 		if (s == null)
 			return;
 
-		LRU_Allocation lrua = new LRU_Allocation(s, frames);
-		
-		int[][] result = lrua.return_allocation(); // array of values
+		LRU_Allocation lrua = new LRU_Allocation();
+		int[][] result = lrua.retAllocation(s, frames); // array of values
 		int faults = lrua.return_page_faults(); // number of faults occurred
 
 		lruTI = new TableInsertion(LRU_Table, LRU_TM, propWin, result, frames, columns, 0);
