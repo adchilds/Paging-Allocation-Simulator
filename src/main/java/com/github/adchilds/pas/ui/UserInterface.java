@@ -1,5 +1,6 @@
 package com.github.adchilds.pas.ui;
 
+import com.github.adchilds.pas.algorithm.PagingAlgorithm;
 import com.github.adchilds.pas.algorithm.impl.FIFO_Allocation;
 import com.github.adchilds.pas.algorithm.impl.LRU_Allocation;
 import com.github.adchilds.pas.algorithm.impl.SC_Allocation;
@@ -583,7 +584,7 @@ public class UserInterface extends JFrame implements ActionListener {
 	 * Begins populating the FIFO JTable
 	 */
 	private void populateFIFOTable() {
-		FIFO_Allocation fa = new FIFO_Allocation();
+		PagingAlgorithm pa = new FIFO_Allocation();
 		int[] s = refStringToArray();
 		int frames = frameSpinnerModel.getNumber().intValue();
 		int columns = FIFO_Table.getColumnCount();
@@ -591,15 +592,15 @@ public class UserInterface extends JFrame implements ActionListener {
 		if (s == null)
 			return;
 
-		int[][] result = fa.retAllocation(s, frames);
-		int faults = fa.retFault();
+		int[][] result = pa.retAllocation(s, frames);
+		int faults = pa.retFault();
 
 		fifoTI = new TableInsertion(FIFO_Table, FIFO_TM, propWin, result, frames, columns, 0);
 		fifoTI.start();
 
 		DecimalFormat fmt = new DecimalFormat("###.##");
 		FIFO_faults.setText(Integer.toString(faults));
-		FIFO_fr.setText(fmt.format(fa.faultRate(s.length, faults)) + "%");
+		FIFO_fr.setText(fmt.format(pa.faultRate(s.length, faults)) + "%");
 	}
 
 	/**
@@ -613,16 +614,16 @@ public class UserInterface extends JFrame implements ActionListener {
 		if (s == null)
 			return;
 
-		LRU_Allocation lrua = new LRU_Allocation();
-		int[][] result = lrua.retAllocation(s, frames); // array of values
-		int faults = lrua.return_page_faults(); // number of faults occurred
+		PagingAlgorithm pa = new LRU_Allocation();
+		int[][] result = pa.retAllocation(s, frames); // array of values
+		int faults = pa.retFault(); // number of faults occurred
 
 		lruTI = new TableInsertion(LRU_Table, LRU_TM, propWin, result, frames, columns, 0);
 		lruTI.start();
 
 		DecimalFormat fmt = new DecimalFormat("###.##");
 		LRU_faults.setText(Integer.toString(faults));
-		LRU_fr.setText(fmt.format(lrua.return_fault_rate()) + "%");
+		LRU_fr.setText(fmt.format(pa.faultRate(s.length, faults)) + "%");
 	}
 
 	/**
@@ -636,16 +637,16 @@ public class UserInterface extends JFrame implements ActionListener {
 		if (s == null)
 			return;
 
-		SC_Allocation sca = new SC_Allocation();
-		int[][] result = sca.retAllocation(s, frames);
-		int faults = sca.retFault();
+		PagingAlgorithm pa = new SC_Allocation();
+		int[][] result = pa.retAllocation(s, frames);
+		int faults = pa.retFault();
 
 		scTI = new TableInsertion(SC_Table, SC_TM, propWin, result, frames, columns, 0);
 		scTI.start();
 
 		DecimalFormat fmt = new DecimalFormat("###.##");
 		SC_faults.setText(Integer.toString(faults));
-		SC_fr.setText(fmt.format(sca.faultRate(s.length, faults)) + "%");
+		SC_fr.setText(fmt.format(pa.faultRate(s.length, faults)) + "%");
 	}
 
 	/**

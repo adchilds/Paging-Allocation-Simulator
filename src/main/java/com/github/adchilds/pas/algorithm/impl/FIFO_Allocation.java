@@ -91,11 +91,18 @@ public class FIFO_Allocation implements PagingAlgorithm {
         return allocation;
     }
 
-    // This function returns the number of page faults counted.
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int retFault() {
         return pageFault;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public double faultRate(int refs, int f) {
         return (((double) f / refs) * 100);
     }

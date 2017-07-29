@@ -40,20 +40,23 @@ public class LRU_Allocation implements PagingAlgorithm {
     }
 
     /**
-     * Returns the number of page faults.
-     *
-     * @return the number of page faults after running the algorithm
+     * {@inheritDoc}
      */
-    public int return_page_faults() {
+    @Override
+    public int retFault() {
         return page_faults;
     }
 
-    public double return_fault_rate() {
-        return ((double)page_faults/references.length)*100;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double faultRate(int refs, int f) {
+        return ((double) f / refs) * 100;
     }
 
     // Performs the LRU page allocation algorithm.
-    public int[][] allocate_frames() {
+    private int[][] allocate_frames() {
         int[][] current_frames = new int[references.length][frames];
         int[] frame_age = new int[frames];
 
