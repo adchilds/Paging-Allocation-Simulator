@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.adchilds</groupId>
+    <artifactId>paging-allocation-simulator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Paging Allocation Simulator</name>
+    <description>Desktop application that simulates various operating system demand paging algorithms.</description>
+    <url>https://github.com/adchilds/Paging-Allocation-Simulator</url>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://opensource.org/licenses/GPL-3.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/adchilds/Paging-Allocation-Simulator</url>
+        <connection>scm:git:git://github.com/adchilds/Paging-Allocation-Simulator.git</connection>
+        <developerConnection>scm:git:git@github.com:adchilds/Paging-Allocation-Simulator.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>adchilds</id>
+            <name>Adam Childs</name>
+            <email>adamdchilds@gmail.com</email>
+            <url>https://github.com/adchilds</url>
+        </developer>
+    </developers>
+
+    <properties>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
