@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Paging Allocation Simulator</name>
+    <name>Page Allocation Simulator</name>
     <description>Desktop application that simulates various operating system demand paging algorithms.</description>
     <url>https://github.com/adchilds/Paging-Allocation-Simulator</url>
 
